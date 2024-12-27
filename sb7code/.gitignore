@@ -1,0 +1,4 @@
+bin/
+build/
+*.txt.user
+.vs
