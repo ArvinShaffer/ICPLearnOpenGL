@@ -42,6 +42,7 @@ set(RUN_DIR ${PROJECT_SOURCE_DIR}/bin)
 
 set(EXAMPLES
 	ex02_1
+	ex02_2singlepoint
 )
 
 find_package(OpenMP)
