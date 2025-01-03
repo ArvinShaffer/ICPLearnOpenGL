@@ -44,6 +44,7 @@ set(EXAMPLES
 	ex02_1
 	ex02_2singlepoint
 	ex02_3singletriangle
+	ex03_1movingtri
 )
 
 find_package(OpenMP)
