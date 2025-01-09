@@ -45,6 +45,8 @@ set(EXAMPLES
 	ex02_2singlepoint
 	ex02_3singletriangle
 	ex03_1movingtri
+	ex03_2interfaceblock
+	ex03_3tessellatedtri
 )
 
 find_package(OpenMP)
