@@ -47,6 +47,7 @@ set(EXAMPLES
 	ex03_1movingtri
 	ex03_2interfaceblock
 	ex03_3tessellatedtri
+	ex03_4tessellatedgstri
 )
 
 find_package(OpenMP)
