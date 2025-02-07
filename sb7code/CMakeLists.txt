@@ -49,6 +49,7 @@ set(EXAMPLES
 	ex03_3tessellatedtri
 	ex03_4tessellatedgstri
 	ex03_5colorfromposition
+	ex05_01indexedcube
 )
 
 find_package(OpenMP)
