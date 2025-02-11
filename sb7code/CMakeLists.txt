@@ -50,6 +50,7 @@ set(EXAMPLES
 	ex03_4tessellatedgstri
 	ex03_5colorfromposition
 	ex05_01indexedcube
+	ex05_02simpletexture
 )
 
 find_package(OpenMP)
