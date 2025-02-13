@@ -35,6 +35,11 @@ set(COMMON_LIBS ${COMMON_LIBS} ${EXTRA_LIBS})
 add_library(
 	sb7
 	src/sb7/sb7.cpp
+	src/sb7/sb7color.cpp
+	src/sb7/sb7ktx.cpp
+	src/sb7/sb7object.cpp
+	src/sb7/sb7shader.cpp
+	src/sb7/sb7textoverlay.cpp
 	src/sb7/gl3w.c
 )
 
@@ -51,6 +56,7 @@ set(EXAMPLES
 	ex03_5colorfromposition
 	ex05_01indexedcube
 	ex05_02simpletexture
+	ex05_03ktxview
 )
 
 find_package(OpenMP)
