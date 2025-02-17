@@ -57,6 +57,7 @@ set(EXAMPLES
 	ex05_01indexedcube
 	ex05_02simpletexture
 	ex05_03ktxview
+	ex05_04simpletexcoords
 )
 
 find_package(OpenMP)
