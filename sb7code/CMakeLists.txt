@@ -59,6 +59,8 @@ set(EXAMPLES
 	ex05_03ktxview
 	ex05_04simpletexcoords
 	ex05_05tunnel
+	ex05_06wrapmodes
+	ex05_07mirrorclampedge
 )
 
 find_package(OpenMP)
