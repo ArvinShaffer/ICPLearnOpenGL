@@ -18,6 +18,15 @@ public:
     ICPQOpenGL(QWidget *parent = nullptr);
     ~ICPQOpenGL();
 
+private slots:
+    void on_actionDrawRectangle_triggered();
+
+    void on_actionClear_triggered();
+
+    void on_actionDrawTriangle_triggered();
+
+    void on_actionWireframe_toggled(bool arg1);
+
 private:
     Ui::ICPQOpenGL *ui;
     ICPOpenGLWidget* openGLWidget;

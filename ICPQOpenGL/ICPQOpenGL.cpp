@@ -14,3 +14,28 @@ ICPQOpenGL::~ICPQOpenGL()
 {
     delete ui;
 }
+
+void ICPQOpenGL::on_actionDrawRectangle_triggered()
+{
+    openGLWidget->drawRectangle();
+}
+
+
+void ICPQOpenGL::on_actionClear_triggered()
+{
+    openGLWidget->clear();
+}
+
+
+void ICPQOpenGL::on_actionDrawTriangle_triggered()
+{
+}
+
+
+
+
+void ICPQOpenGL::on_actionWireframe_toggled(bool arg1)
+{
+    openGLWidget->setPolygonMode(arg1);
+}
+

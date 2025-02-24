@@ -14,21 +14,56 @@ unsigned int indices[] = {
     1, 2, 3
 };
 
-const char *vertexShaderSource = "#version 330 core\n"
-                                 "layout (location = 0) in vec3 aPos;\n"
-                                 "void main()\n"
-                                 "{\n"
-                                 " gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-                                 "}\0";
-const char *fragmentShaderSource = "#version 330 core\n"
-                                   "out vec4 FragColor;\n"
-                                   "void main()\n"
-                                   "{\n"
-                                   " FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n" "}\n\0";
+const char *vertexShaderSource = "#version 330 core                                     \n"
+                                 "layout (location = 0) in vec3 aPos;                   \n"
+                                 "void main()                                           \n"
+                                 "{                                                     \n"
+                                 "    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);  \n"
+                                 "}                                                     \0";
+const char *fragmentShaderSource = "#version 330 core                              \n"
+                                   "out vec4 FragColor;                            \n"
+                                   "void main()                                    \n"
+                                   "{                                              \n"
+                                   "    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);  \n"
+                                   "}                                            \n\0";
 
 ICPOpenGLWidget::ICPOpenGLWidget(QWidget *parent)
     : QOpenGLWidget{parent}
 {}
+
+ICPOpenGLWidget::~ICPOpenGLWidget()
+{
+    makeCurrent();
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+    glDeleteProgram(shaderProgram);
+    doneCurrent();
+}
+
+void ICPOpenGLWidget::drawRectangle()
+{
+    ShapeType = GL_TRIANGLES;
+    isDraw = true;
+    update();
+}
+
+void ICPOpenGLWidget::clear()
+{
+    isDraw = false;
+    update();
+}
+
+void ICPOpenGLWidget::setPolygonMode(bool isWire)
+{
+    makeCurrent();
+    if(isWire)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    else
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    doneCurrent();
+    update();
+}
 
 void ICPOpenGLWidget::initializeGL()
 {
@@ -66,7 +101,7 @@ void ICPOpenGLWidget::initializeGL()
     glLinkProgram(shaderProgram);
     glUseProgram(shaderProgram);
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -81,8 +116,9 @@ void ICPOpenGLWidget::paintGL()
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    if(!isDraw) return;
     glBindVertexArray(VAO);
     //glDrawArrays(GL_TRIANGLES, 0, 3);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0/*&indices*/);
+    glDrawElements(ShapeType, 6, GL_UNSIGNED_INT, 0/*&indices*/);
     glBindVertexArray(0);
 }
