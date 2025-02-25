@@ -61,6 +61,7 @@ set(EXAMPLES
 	ex05_05tunnel
 	ex05_06wrapmodes
 	ex05_07mirrorclampedge
+	ex05_08alienrain
 )
 
 find_package(OpenMP)
