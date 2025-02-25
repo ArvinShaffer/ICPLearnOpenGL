@@ -1,7 +1,7 @@
 #include "ICPOpenGLWidget.h"
 
 unsigned int VAO, VBO, EBO;
-unsigned int shaderProgram;
+
 float vertices[] = {
      0.5f,  0.5f, 0.0f,
      0.5f, -0.5f, 0.0f,
@@ -14,19 +14,6 @@ unsigned int indices[] = {
     1, 2, 3
 };
 
-const char *vertexShaderSource = "#version 330 core                                     \n"
-                                 "layout (location = 0) in vec3 aPos;                   \n"
-                                 "void main()                                           \n"
-                                 "{                                                     \n"
-                                 "    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);  \n"
-                                 "}                                                     \0";
-const char *fragmentShaderSource = "#version 330 core                              \n"
-                                   "out vec4 FragColor;                            \n"
-                                   "void main()                                    \n"
-                                   "{                                              \n"
-                                   "    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);  \n"
-                                   "}                                            \n\0";
-
 ICPOpenGLWidget::ICPOpenGLWidget(QWidget *parent)
     : QOpenGLWidget{parent}
 {}
@@ -37,7 +24,6 @@ ICPOpenGLWidget::~ICPOpenGLWidget()
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
-    glDeleteProgram(shaderProgram);
     doneCurrent();
 }
 
@@ -84,22 +70,14 @@ void ICPOpenGLWidget::initializeGL()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    // 编译顶点着色器
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-
-    // 编译片段着色器
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-
-    // link shaders
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    glUseProgram(shaderProgram);
+    // shaders
+    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/shapes.vert");
+    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/shapes.frag");
+    bool success = shaderProgram.link();
+    if(!success){
+        qDebug() << shaderProgram.log();
+    }
+    shaderProgram.bind();
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 

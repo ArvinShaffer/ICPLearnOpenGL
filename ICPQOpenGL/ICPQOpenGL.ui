@@ -85,7 +85,6 @@ QWidget:checked{
     <bool>false</bool>
    </attribute>
    <addaction name="actionDrawRectangle"/>
-   <addaction name="actionDrawTriangle"/>
    <addaction name="actionWireframe"/>
    <addaction name="actionClear"/>
   </widget>
@@ -100,14 +99,6 @@ QWidget:checked{
   <action name="actionClear">
    <property name="text">
     <string>清空画面</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::NoRole</enum>
-   </property>
-  </action>
-  <action name="actionDrawTriangle">
-   <property name="text">
-    <string>画一个三角形</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

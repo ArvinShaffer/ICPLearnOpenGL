@@ -23,8 +23,6 @@ private slots:
 
     void on_actionClear_triggered();
 
-    void on_actionDrawTriangle_triggered();
-
     void on_actionWireframe_toggled(bool arg1);
 
 private:

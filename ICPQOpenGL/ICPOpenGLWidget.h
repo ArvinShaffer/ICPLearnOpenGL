@@ -3,6 +3,7 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
+#include <QOpenGLShaderProgram>
 
 class ICPOpenGLWidget : public QOpenGLWidget, QOpenGLFunctions_3_3_Core
 {
@@ -22,6 +23,7 @@ protected:
 private:
     bool isDraw = false;
     int ShapeType = GL_TRIANGLES;
+    QOpenGLShaderProgram shaderProgram;
 
 signals:
 };
