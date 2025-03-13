@@ -4,6 +4,8 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
 #include <QOpenGLShaderProgram>
+#include <iostream>
+using namespace std;
 
 class ICPOpenGLWidget : public QOpenGLWidget, QOpenGLFunctions_3_3_Core
 {

@@ -54,21 +54,6 @@ void ICPOpenGLWidget::setPolygonMode(bool isWire)
 void ICPOpenGLWidget::initializeGL()
 {
     this->initializeOpenGLFunctions();
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-    //glBindVertexArray(0);
-    //glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    // EBO
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // shaders
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/shapes.vert");
@@ -78,6 +63,31 @@ void ICPOpenGLWidget::initializeGL()
         qDebug() << shaderProgram.log();
     }
     shaderProgram.bind();
+
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    // 将数据传入显存
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    int posLocation = shaderProgram.attributeLocation("aPos");
+    cout << posLocation << endl;
+    // 告知显卡如何解析
+    glVertexAttribPointer(posLocation, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (GLvoid*)0);
+
+    // 开启VAO的属性
+    glEnableVertexAttribArray(posLocation);
+    //glBindVertexArray(0);
+    //glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // EBO
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
