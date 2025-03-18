@@ -16,7 +16,18 @@ unsigned int indices[] = {
 
 ICPOpenGLWidget::ICPOpenGLWidget(QWidget *parent)
     : QOpenGLWidget{parent}
-{}
+{
+    timer.setInterval(200);
+    connect(&timer, &QTimer::timeout, [this](){
+        makeCurrent();
+        int timeValue = QTime::currentTime().msec();
+        float greenValue = sin(timeValue)/2.0f + 0.5f;
+        shaderProgram.setUniformValue("ourColor", 0.0f, greenValue, 0.0f, 1.0f);
+        doneCurrent();
+        update();
+    });
+    timer.start();
+}
 
 ICPOpenGLWidget::~ICPOpenGLWidget()
 {

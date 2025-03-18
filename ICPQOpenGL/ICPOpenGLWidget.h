@@ -5,6 +5,8 @@
 #include <QOpenGLFunctions_3_3_Core>
 #include <QOpenGLShaderProgram>
 #include <iostream>
+#include <QTimer>
+#include <QTime>
 using namespace std;
 
 class ICPOpenGLWidget : public QOpenGLWidget, QOpenGLFunctions_3_3_Core
@@ -26,6 +28,7 @@ private:
     bool isDraw = false;
     int ShapeType = GL_TRIANGLES;
     QOpenGLShaderProgram shaderProgram;
+    QTimer timer;
 
 signals:
 };
